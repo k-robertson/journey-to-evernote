@@ -22,6 +22,7 @@ for root, dirs, files in os.walk('journey'):
             id = data['id']
             journeytags = data['tags']
             tags=''
+            text = data['text'].replace('\n','<br/>')
             if len(journeytags)>0:
                 for tag in journeytags:
                     tags += f'<tag>{tag}</tag>'
