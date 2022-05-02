@@ -48,7 +48,6 @@ for root, dirs, files in os.walk('journey'):
                     <updated>{modified.strftime("%Y%m%dT%H%M%SZ")}</updated>
                     {tags}
                     <note-attributes></note-attributes>
-                    %(resources)s
                 </note>"""
 
             enexpath = jsonpath.replace('.json','.enex').replace('journey','evernote')
