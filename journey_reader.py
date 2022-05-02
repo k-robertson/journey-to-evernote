@@ -4,7 +4,6 @@ import os
 import re
 import json
 from datetime import datetime
-import sys
 
 jsonfiles = []
 for root, dirs, files in os.walk('journey'):
