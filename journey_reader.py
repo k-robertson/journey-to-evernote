@@ -21,7 +21,6 @@ for root, dirs, files in os.walk('journey'):
             id = data['id']
             journeytags = data['tags']
             tags=''
-            text = data['text'].replace('\n','<br/>')
             if len(journeytags)>0:
                 for tag in journeytags:
                     tags += f'<tag>{tag}</tag>'
@@ -29,7 +28,7 @@ for root, dirs, files in os.walk('journey'):
             contents = f"""
                 Imported from Journey (ID: {id})<br/>
                 Journey tags: {tags}<br/><br/><br/>
-                Entry:<br/><br/>{re.sub(r'<.*?>', '', data['text'])}"""
+                {re.sub(r'<.*?>', '', data['text'].replace('\n','<br/>'))}"""
             
             enexcontents = f"""
                 <note>
@@ -37,7 +36,7 @@ for root, dirs, files in os.walk('journey'):
                     <content>
                         <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
                         <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
-                        <en-note><div>{text}</div></en-note>
+                        <en-note><div>{contents}</div></en-note>
                         ]]>
                     </content>
                     <created>{created.strftime("%Y%m%dT%H%M%SZ")}</created>
