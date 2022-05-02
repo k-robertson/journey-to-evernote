@@ -26,11 +26,8 @@ for root, dirs, files in os.walk('journey'):
                 for tag in journeytags:
                     tags += f'<tag>{tag}</tag>'
                         
-            text = f"""
-                Imported from Journey<br/>
-                Created: {created}<br/>
-                Modified: {modified}<br/>
-                Journey ID: {id}<br/>
+            contents = f"""
+                Imported from Journey (ID: {id})<br/>
                 Journey tags: {tags}<br/><br/><br/>
                 Entry:<br/><br/>{re.sub(r'<.*?>', '', data['text'])}"""
             
