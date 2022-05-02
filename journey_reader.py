@@ -18,8 +18,6 @@ for root, dirs, files in os.walk('journey'):
 
             created = datetime.fromtimestamp(data['date_journal']/1000)
             modified = datetime.fromtimestamp(data['date_modified']/1000)
-            created_enex = created.strftime(f"%Y%m%dT%H%M%SZ")
-            modified_enex = modified.strftime(f"%Y%m%dT%H%M%SZ")
             title = created.strftime(f"%Y-%m-%d %H:%M")
             id = data['id']
             journeytags = data['tags']
