@@ -24,26 +24,14 @@ for root, dirs, files in os.walk('journey'):
             if len(journeytags)>0:
                 for tag in journeytags:
                     tags += f'<tag>{tag}</tag>'
-                        
-            contents = f"""
-                Imported from Journey (ID: {id})<br/>
-                Journey tags: {tags}<br/><br/><br/>
-                {re.sub(r'<.*?>', '', data['text'].replace('\n','<br/>'))}"""
             
-            enexcontents = f"""
-                <note>
-                    <title>{title}</title>
-                    <content>
-                        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                        <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
-                        <en-note><div>{contents}</div></en-note>
-                        ]]>
-                    </content>
-                    <created>{created.strftime("%Y%m%dT%H%M%SZ")}</created>
-                    <updated>{modified.strftime("%Y%m%dT%H%M%SZ")}</updated>
-                    {tags}
-                    <note-attributes></note-attributes>
-                </note>"""
+            # set up journal entry to include Journey ID & tags
+            entry = data['text'] #entry = re.sub(r'<.*?>', '', data['text'])
+            entry = entry.replace('\n','<br/>')
+            contents = f'Journey ID: {id}<br/>Journey tags: {tags}<br/><br/><br/>{entry}'
+            
+            # insert entry into Evernote's ENEX file format and save to ENEX file
+            enexcontents = f'<note><title>{title}</title><content><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note><div>{contents}</div></en-note>]]></content><created>{created.strftime("%Y%m%dT%H%M%SZ")}</created><updated>{modified.strftime("%Y%m%dT%H%M%SZ")}</updated>{tags}</note>'
 
             enexpath = jsonpath.replace('.json','.enex').replace('journey','evernote')
             writer = open(enexpath, 'w')#'x')
